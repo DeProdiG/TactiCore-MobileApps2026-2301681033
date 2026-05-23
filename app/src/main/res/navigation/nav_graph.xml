@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/heroListFragment">
+
+    <fragment
+        android:id="@+id/heroListFragment"
+        android:name="com.example.tacticore.ui.herolist.HeroListFragment"
+        android:label="Tacticore"
+        tools:layout="@layout/fragment_hero_list">
+        <action
+            android:id="@+id/action_heroList_to_heroDetail"
+            app:destination="@id/heroDetailFragment" />
+        <action
+            android:id="@+id/action_heroList_to_counterFragment"
+            app:destination="@id/counterFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/heroDetailFragment"
+        android:name="com.example.tacticore.ui.herodetail.HeroDetailFragment"
+        android:label="Детайли за герой"
+        tools:layout="@layout/fragment_hero_detail">
+        <argument
+            android:name="heroId"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/counterFragment"
+        android:name="com.example.tacticore.ui.counter.CounterFragment"
+        android:label="Кой контрира?"
+        tools:layout="@layout/fragment_counter" />
+</navigation>
