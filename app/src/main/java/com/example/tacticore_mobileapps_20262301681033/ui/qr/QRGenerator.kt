@@ -11,7 +11,6 @@ import com.google.zxing.qrcode.QRCodeWriter
 
 object QRGenerator {
 
-    // Генерира QR код като Bitmap от текстови данни
     fun generateQRCode(data: String): Bitmap? {
         return try {
             val writer = QRCodeWriter()
@@ -31,7 +30,6 @@ object QRGenerator {
         }
     }
 
-    // Показва диалог с генерирания QR код
     fun showQRCodeDialog(context: android.content.Context, data: String) {
         val bitmap = generateQRCode(data)
         if (bitmap == null) return

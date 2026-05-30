@@ -46,22 +46,41 @@ class QRScannerActivity : AppCompatActivity() {
 
     private fun processScannedData(data: String) {
         val parts = data.split("|")
-        if (parts.size >= 3) {
+        if (parts.size >= 4) {
             val heroName = parts[0]
-            val notes = parts[1]
-            val rating = parts[2].toIntOrNull() ?: 3
+            val mode = parts[1].lowercase()
+            val notes = parts[2]
+            val rating = parts[3].toIntOrNull() ?: 3
+
+            var stadiumItems: String? = null
+            var stadiumGadgets: String? = null
+            var stadiumPower: String? = null
+            var quickPlayPerks: String? = null
+
+            if (mode == "stadium") {
+                if (parts.size >= 5) stadiumItems = parts[4].replace("Items:", "")
+                if (parts.size >= 6) stadiumGadgets = parts[5].replace("Gadgets:", "")
+                if (parts.size >= 7) stadiumPower = parts[6].replace("Power:", "")
+            } else if (mode == "quickplay") {
+                if (parts.size >= 5) quickPlayPerks = parts[4].replace("Perks:", "")
+            }
 
             val repository = (application as TacticoreApplication).repository
             val hero = repository.getHeroes().find { it.name.equals(heroName, ignoreCase = true) }
             if (hero != null) {
                 val build = HeroBuild(
                     heroId = hero.id,
+                    mode = mode,
                     userNotes = notes,
-                    rating = rating
+                    rating = rating,
+                    stadiumItems = stadiumItems,
+                    stadiumGadgets = stadiumGadgets,
+                    stadiumPower = stadiumPower,
+                    quickPlayPerks = quickPlayPerks
                 )
                 lifecycleScope.launch {
                     repository.saveBuild(build)
-                    Toast.makeText(this@QRScannerActivity, "Билдът на $heroName е импортиран", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@QRScannerActivity, "Билдът на $heroName ($mode) е импортиран", Toast.LENGTH_LONG).show()
                     finish()
                 }
             } else {

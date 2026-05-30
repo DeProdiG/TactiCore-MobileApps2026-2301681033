@@ -9,7 +9,11 @@ import com.example.tacticore.data.HeroBuild
 import com.example.tacticore.data.HeroRepository
 import kotlinx.coroutines.launch
 
-class HeroDetailViewModel(private val repository: HeroRepository) : ViewModel() {
+class HeroDetailViewModel : ViewModel() {
+
+    private lateinit var repository: HeroRepository
+    private var heroId: Int = 0
+    private var currentMode: String = "stadium"
 
     private val _hero = MutableLiveData<Hero?>()
     val hero: LiveData<Hero?> = _hero
@@ -17,32 +21,57 @@ class HeroDetailViewModel(private val repository: HeroRepository) : ViewModel() 
     private val _build = MutableLiveData<HeroBuild?>()
     val build: LiveData<HeroBuild?> = _build
 
-    fun loadHero(heroId: Int) {
+    fun init(repository: HeroRepository, heroId: Int, mode: String) {
+        this.repository = repository
+        this.heroId = heroId
+        this.currentMode = mode
+        loadHero()
+        loadBuild()
+    }
+
+    private fun loadHero() {
         _hero.value = repository.getHeroById(heroId)
+    }
+
+    private fun loadBuild() {
         viewModelScope.launch {
-            repository.getBuildForHero(heroId).collect { build ->
-                _build.postValue(build)
-            }
+            val savedBuild = repository.getBuildForHero(heroId, currentMode)
+            _build.postValue(savedBuild)
         }
     }
 
-    fun saveBuild(heroId: Int, notes: String, rating: Int) {
+    fun saveBuild(notes: String, rating: Int,
+                  stadiumItems: String? = null,
+                  stadiumGadgets: String? = null,
+                  stadiumPower: String? = null,
+                  quickPlayPerks: String? = null) {
         viewModelScope.launch {
             val existing = _build.value
             val build = HeroBuild(
                 id = existing?.id ?: 0,
                 heroId = heroId,
+                mode = currentMode,
                 userNotes = notes,
-                rating = rating
+                rating = rating,
+                stadiumItems = stadiumItems,
+                stadiumGadgets = stadiumGadgets,
+                stadiumPower = stadiumPower,
+                quickPlayPerks = quickPlayPerks
             )
             repository.saveBuild(build)
+            _build.postValue(build)
         }
     }
 
-    fun deleteBuild(heroId: Int) {
+    fun deleteBuild() {
         viewModelScope.launch {
-            repository.deleteBuildByHeroId(heroId)
+            repository.deleteBuild(heroId, currentMode)
             _build.postValue(null)
         }
+    }
+
+    fun setMode(mode: String) {
+        currentMode = mode
+        loadBuild()
     }
 }

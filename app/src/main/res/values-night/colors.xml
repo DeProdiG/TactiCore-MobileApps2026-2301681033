@@ -6,7 +6,7 @@
     <color name="secondary">#F9D276</color>
     <color name="secondary_variant">#F9D276</color>
 
-    <!-- Цветове за ролите -->
+    <!-- Цветове за ролите  -->
     <color name="role_tank">#AD1D45</color>     <!-- червено за Tank -->
     <color name="role_dps">#F9D276</color>      <!-- жълто за DPS -->
     <color name="role_support">#83142C</color>  <!-- тъмно червено за Support -->

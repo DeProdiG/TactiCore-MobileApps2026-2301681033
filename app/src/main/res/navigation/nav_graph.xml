@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_heroList_to_counterFragment"
             app:destination="@id/counterFragment" />
+        <action
+            android:id="@+id/action_heroList_to_buildList"
+            app:destination="@id/buildListFragment" />
     </fragment>
 
     <fragment
@@ -26,6 +29,35 @@
         <argument
             android:name="heroId"
             app:argType="integer" />
+        <argument
+            android:name="preloadMode"
+            android:defaultValue="@null"
+            app:argType="string" />
+        <argument
+            android:name="preloadNotes"
+            android:defaultValue="@null"
+            app:argType="string" />
+        <argument
+            android:name="preloadRating"
+            android:defaultValue="0"
+            app:argType="integer" />
+        <argument
+            android:name="preloadStadiumItems"
+            android:defaultValue="@null"
+            app:argType="string" />
+        <argument
+            android:name="preloadStadiumGadgets"
+            android:defaultValue="@null"
+            app:argType="string" />
+        <argument
+            android:name="preloadStadiumPower"
+            android:defaultValue="@null"
+            app:argType="string" />
+        <argument
+            android:name="preloadQuickPlayPerks"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 
     <fragment
@@ -33,4 +65,18 @@
         android:name="com.example.tacticore.ui.counter.CounterFragment"
         android:label="Кой контрира?"
         tools:layout="@layout/fragment_counter" />
+
+    <fragment
+        android:id="@+id/buildListFragment"
+        android:name="com.example.tacticore.ui.buildlist.BuildListFragment"
+        android:label="Запазени builds"
+        tools:layout="@layout/fragment_build_list">
+        <argument
+            android:name="heroId"
+            app:argType="integer" />
+        <argument
+            android:name="heroName"
+            app:argType="string" />
+    </fragment>
+
 </navigation>
