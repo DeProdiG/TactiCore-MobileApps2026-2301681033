@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="6dp"
-    app:cardElevation="2dp"
-    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="16dp"
     app:cardBackgroundColor="?attr/colorSurface">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,16 +13,18 @@
         android:layout_height="wrap_content"
         android:padding="12dp">
 
-        <ImageView
+        <!-- Изображение на героя (кръгло) -->
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/heroImage"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="centerCrop"
-            android:importantForAccessibility="no"
+            app:shapeAppearanceOverlay="@style/roundedImageView"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <!-- Име на героя -->
         <TextView
             android:id="@+id/heroName"
             android:layout_width="0dp"
@@ -31,23 +33,24 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:textAlignment="center"
-            android:textColor="?attr/colorOnSurface"
+            android:textColor="?android:attr/textColorPrimary"
             app:layout_constraintTop_toBottomOf="@id/heroImage"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <!-- Роля (badge с заоблен фон) -->
         <TextView
             android:id="@+id/heroRole"
             android:layout_width="wrap_content"
-            android:layout_height="26dp"
-            android:layout_marginTop="6dp"
+            android:layout_height="28dp"
+            android:layout_marginTop="8dp"
             android:gravity="center"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:textSize="12sp"
             android:textStyle="bold"
             android:textAllCaps="true"
-            android:textAlignment="center"
+            android:textColor="@android:color/white"
             app:layout_constraintTop_toBottomOf="@id/heroName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

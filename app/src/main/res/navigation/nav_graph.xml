@@ -56,8 +56,11 @@
         <argument
             android:name="preloadQuickPlayPerks"
             android:defaultValue="@null"
-            app:argType="string"
-            app:nullable="true" />
+            app:argType="string" />
+        <argument
+            android:name="preloadBuildId"
+            android:defaultValue="0L"
+            app:argType="long" />
     </fragment>
 
     <fragment
@@ -78,5 +81,24 @@
             android:name="heroName"
             app:argType="string" />
     </fragment>
+
+    <!-- Нови дестинации за менюто -->
+    <fragment
+        android:id="@+id/allBuildsFragment"
+        android:name="com.example.tacticore.ui.allbuilds.AllBuildsFragment"
+        android:label="Всички builds"
+        tools:layout="@layout/fragment_all_builds" />
+
+    <fragment
+        android:id="@+id/contactsFragment"
+        android:name="com.example.tacticore.ui.contacts.ContactsFragment"
+        android:label="Контакти"
+        tools:layout="@layout/fragment_contacts" />
+
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.example.tacticore.ui.about.AboutFragment"
+        android:label="За нас"
+        tools:layout="@layout/fragment_about" />
 
 </navigation>

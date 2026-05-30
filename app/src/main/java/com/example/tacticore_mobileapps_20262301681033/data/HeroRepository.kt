@@ -150,6 +150,38 @@ class HeroRepository(private val context: Context) {
         db.close()
         builds
     }
+    suspend fun getAllBuilds(): List<HeroBuild> = withContext(Dispatchers.IO) {
+        val db = dbHelper.readableDatabase
+        val cursor = db.query(
+            DatabaseHelper.TABLE_HERO_BUILDS,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "${DatabaseHelper.COL_TIMESTAMP} DESC"
+        )
+        val builds = mutableListOf<HeroBuild>()
+        while (cursor.moveToNext()) {
+            builds.add(
+                HeroBuild(
+                    id = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_ID)),
+                    heroId = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_HERO_ID)),
+                    mode = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_MODE)),
+                    userNotes = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_USER_NOTES)),
+                    rating = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_RATING)),
+                    stadiumItems = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_STADIUM_ITEMS)),
+                    stadiumGadgets = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_STADIUM_GADGETS)),
+                    stadiumPower = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_STADIUM_POWER)),
+                    quickPlayPerks = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_QUICKPLAY_PERKS)),
+                    timestamp = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_TIMESTAMP))
+                )
+            )
+        }
+        cursor.close()
+        db.close()
+        builds
+    }
     suspend fun deleteBuild(heroId: Int, mode: String) = withContext(Dispatchers.IO) {
         val db = dbHelper.writableDatabase
         db.delete(

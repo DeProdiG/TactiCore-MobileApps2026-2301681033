@@ -21,7 +21,7 @@
             android:id="@+id/titleText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="TACTICORE"
+            android:text="Герои"
             android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="?android:attr/textColorPrimary"
@@ -35,13 +35,16 @@
             android:id="@+id/btnCounterHelp"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:text="Counter"
+            android:text="Контри"
             android:textSize="14sp"
             android:textAllCaps="false"
+            android:textColor="@android:color/white"
             app:icon="@android:drawable/ic_menu_manage"
             app:iconGravity="textStart"
             app:iconPadding="8dp"
-            style="@style/Widget.Material3.Button.OutlinedButton"
+            app:iconTint="@android:color/white"
+            android:backgroundTint="@color/fab_background"
+            app:cornerRadius="20dp"
             android:paddingHorizontal="12dp"
             android:contentDescription="Контри помощ"
             app:layout_constraintTop_toTopOf="parent"
@@ -49,12 +52,16 @@
             app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- Търсачка (Material 3 Outlined Box) без custom атрибути -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/searchLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        style="@style/SearchBoxStyle"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="4dp"
+        style="@style/RoundedSearchBox"
         app:endIconMode="clear_text"
         app:startIconDrawable="@android:drawable/ic_menu_search"
         app:startIconTint="?attr/colorPrimary"
@@ -66,17 +73,19 @@
             android:id="@+id/etSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="🔍 Търси герой..."
+            android:hint="Търси герой..."
             android:inputType="text"
             android:imeOptions="actionSearch" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- Spinner филтър -->
     <Spinner
         android:id="@+id/spinnerRoleFilter"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/bg_spinner"
         app:layout_constraintTop_toBottomOf="@id/searchLayout"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,7 +95,7 @@
         android:id="@+id/recyclerViewHeroes"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:padding="8dp"
         android:clipToPadding="false"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"

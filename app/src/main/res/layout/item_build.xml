@@ -24,24 +24,26 @@
 
         <ImageButton
             android:id="@+id/btnEditBuild"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@android:drawable/ic_menu_edit"
             android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="8dp"
             android:contentDescription="Редактирай"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/tvMode"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnDeleteBuild" />
 
         <ImageButton
             android:id="@+id/btnDeleteBuild"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@android:drawable/ic_menu_delete"
             android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="8dp"
             android:contentDescription="Изтрий"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/tvMode"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView

@@ -27,11 +27,7 @@ class HeroListAdapter(
     override fun onBindViewHolder(holder: HeroViewHolder, position: Int) {
         val hero = heroes[position]
         holder.bind(hero)
-        holder.itemView.setOnClickListener {
-            it.animate().scaleX(0.95f).scaleY(0.95f).setDuration(100).withEndAction {
-            it.animate().scaleX(1f).scaleY(1f).setDuration(100).start()
-            onHeroClick(hero)
-        }.start() }
+        holder.itemView.setOnClickListener { onHeroClick(hero) }
     }
 
     override fun getItemCount() = heroes.size
@@ -41,19 +37,27 @@ class HeroListAdapter(
             binding.heroName.text = hero.name
             binding.heroRole.text = hero.role
 
+            // Цвят на badge според ролята
             val context = binding.root.context
             val color = when (hero.role) {
-                "Tank" -> ContextCompat.getColor(context, R.color.role_tank)      // #AD1D45
-                "DPS" -> ContextCompat.getColor(context, R.color.role_dps)        // #F9D276
-                "Support" -> ContextCompat.getColor(context, R.color.role_support)// #83142C
-                else -> ContextCompat.getColor(context, R.color.role_unknown)     // #44000D
+                "Tank" -> ContextCompat.getColor(context, R.color.role_tank)
+                "DPS" -> ContextCompat.getColor(context, R.color.role_dps)
+                "Support" -> ContextCompat.getColor(context, R.color.role_support)
+                else -> ContextCompat.getColor(context, R.color.role_unknown)
             }
-            binding.heroRole.setBackgroundColor(color)
+            // Задаваме фона с drawable и tint (за да запазим ъглите)
+            val drawable = ContextCompat.getDrawable(context, R.drawable.bg_role_badge)?.mutate()
+            drawable?.setTint(color)
+            binding.heroRole.background = drawable
+
+            // За DPS (жълт фон) текстът да е черен, за другите бял
             if (hero.role == "DPS") {
                 binding.heroRole.setTextColor(ContextCompat.getColor(context, R.color.black))
             } else {
                 binding.heroRole.setTextColor(ContextCompat.getColor(context, R.color.white))
             }
+
+            // Задаване на изображението
             binding.heroImage.setImageResource(hero.imageResId)
         }
     }
