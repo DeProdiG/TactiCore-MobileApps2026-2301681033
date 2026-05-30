@@ -1,9 +1,15 @@
 package com.example.tacticore
 
+import android.app.Dialog
 import android.os.Bundle
+import android.view.ContextThemeWrapper
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -24,7 +30,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    // Списък с ID-та на "началните" фрагменти (там не искаме допълнителен бутон за меню)
     private val topLevelDestinations = setOf(
         R.id.heroListFragment,
         R.id.allBuildsFragment,
@@ -80,20 +85,17 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-        // Следим за промяна на дестинацията, за да обновим менюто
         navController.addOnDestinationChangedListener { _, destination, _ ->
             supportInvalidateOptionsMenu()
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        // Инфлейтваме менюто само за детайлите – но не го показваме веднага, а ще контролираме видимостта
         menuInflater.inflate(R.menu.detail_menu, menu)
         return true
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        // Скриваме или показваме бутона в зависимост от текущата дестинация
         val currentDestination = navController.currentDestination
         val showMenuButton = currentDestination != null && !topLevelDestinations.contains(currentDestination.id)
         menu?.findItem(R.id.action_open_drawer)?.isVisible = showMenuButton
@@ -101,13 +103,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_open_drawer -> {
-                // Намираме изгледа на бутона (може да се подаде toolbar или menu item view)
-                // Най-лесно: вземаме текущия toolbar
-                showRightMenu(binding.toolbar)
-                return true
-            }
+        if (item.itemId == R.id.action_open_drawer) {
+            showRightMenu()
+            return true
         }
         return super.onOptionsItemSelected(item)
     }
@@ -115,21 +113,40 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
-    private fun showRightMenu(view: View) {
-        val popupMenu = androidx.appcompat.widget.PopupMenu(this, view)
-        popupMenu.menuInflater.inflate(R.menu.drawer_menu, popupMenu.menu)
-        popupMenu.gravity = android.view.Gravity.END // позициониране вдясно
-        popupMenu.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.heroListFragment -> navController.navigate(R.id.heroListFragment)
-                R.id.allBuildsFragment -> navController.navigate(R.id.allBuildsFragment)
-                R.id.counterFragment -> navController.navigate(R.id.counterFragment)
-                R.id.contactsFragment -> navController.navigate(R.id.contactsFragment)
-                R.id.aboutFragment -> navController.navigate(R.id.aboutFragment)
-                else -> false
-            }
-            true
+    private fun showRightMenu() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE) // премахва заглавието
+        dialog.setContentView(R.layout.dialog_right_menu)
+
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND) // премахва затъмняването
+        dialog.window?.attributes?.gravity = Gravity.TOP or Gravity.END
+        dialog.window?.attributes?.y = binding.toolbar.height / 2
+        dialog.window?.setLayout(
+            WindowManager.LayoutParams.WRAP_CONTENT,
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
+
+        dialog.findViewById<TextView>(R.id.menu_home).setOnClickListener {
+            navController.navigate(R.id.heroListFragment)
+            dialog.dismiss()
         }
-        popupMenu.show()
+        dialog.findViewById<TextView>(R.id.menu_all_builds).setOnClickListener {
+            navController.navigate(R.id.allBuildsFragment)
+            dialog.dismiss()
+        }
+        dialog.findViewById<TextView>(R.id.menu_counter).setOnClickListener {
+            navController.navigate(R.id.counterFragment)
+            dialog.dismiss()
+        }
+        dialog.findViewById<TextView>(R.id.menu_contacts).setOnClickListener {
+            navController.navigate(R.id.contactsFragment)
+            dialog.dismiss()
+        }
+        dialog.findViewById<TextView>(R.id.menu_about).setOnClickListener {
+            navController.navigate(R.id.aboutFragment)
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 }

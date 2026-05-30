@@ -19,22 +19,14 @@
             android:layout_marginTop="16dp"
             app:cardCornerRadius="60dp"
             app:cardElevation="4dp"
-            app:cardBackgroundColor="?attr/colorPrimaryContainer">
+            app:cardBackgroundColor="#83142C">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="T"
-                    android:textSize="48sp"
-                    android:textStyle="bold"
-                    android:textColor="?attr/colorOnPrimaryContainer"
-                    android:layout_gravity="center" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:src="@drawable/tacticorelogo"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center" />
         </com.google.android.material.card.MaterialCardView>
 
         <TextView

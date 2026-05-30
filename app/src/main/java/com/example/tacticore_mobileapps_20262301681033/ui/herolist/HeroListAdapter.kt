@@ -37,7 +37,6 @@ class HeroListAdapter(
             binding.heroName.text = hero.name
             binding.heroRole.text = hero.role
 
-            // Цвят на badge според ролята
             val context = binding.root.context
             val color = when (hero.role) {
                 "Tank" -> ContextCompat.getColor(context, R.color.role_tank)
@@ -45,19 +44,16 @@ class HeroListAdapter(
                 "Support" -> ContextCompat.getColor(context, R.color.role_support)
                 else -> ContextCompat.getColor(context, R.color.role_unknown)
             }
-            // Задаваме фона с drawable и tint (за да запазим ъглите)
             val drawable = ContextCompat.getDrawable(context, R.drawable.bg_role_badge)?.mutate()
             drawable?.setTint(color)
             binding.heroRole.background = drawable
 
-            // За DPS (жълт фон) текстът да е черен, за другите бял
             if (hero.role == "DPS") {
                 binding.heroRole.setTextColor(ContextCompat.getColor(context, R.color.black))
             } else {
                 binding.heroRole.setTextColor(ContextCompat.getColor(context, R.color.white))
             }
 
-            // Задаване на изображението
             binding.heroImage.setImageResource(hero.imageResId)
         }
     }

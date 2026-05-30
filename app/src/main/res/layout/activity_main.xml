@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Основно съдържание на приложението -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -30,12 +29,15 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Странично меню (навигационен drawer) -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navView"
-        android:layout_width="wrap_content"
+        android:layout_width="280dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:menu="@menu/drawer_menu" />
-
+        android:background="@drawable/nav_gradient_background"
+        app:itemTextColor="#F9D276"
+        app:itemIconTint="#F9D276"
+        app:itemTextAppearance="@style/NavMenuItemText"
+        app:menu="@menu/drawer_menu"
+        app:headerLayout="@layout/nav_header" />
 </androidx.drawerlayout.widget.DrawerLayout>

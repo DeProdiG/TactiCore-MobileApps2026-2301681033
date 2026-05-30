@@ -12,7 +12,6 @@
     <color name="role_support">#83142C</color>  <!-- тъмно червено за Support -->
     <color name="role_unknown">#44000D</color>
 
-    <!-- Стандартни неутрални цветове -->
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="purple_500">#AD1D45</color>
@@ -23,4 +22,9 @@
     <!-- Бутончето -->
     <color name="fab_background">#AD1D45</color>
     <color name="fab_icon">#FFFFFF</color>
+
+    <color name="drawer_background">#44000D</color>
+    <color name="drawer_text">#F9D276</color>
+    <color name="drawer_selected_text">#AD1D45</color>
+    <color name="drawer_selected_bg">#83142C</color>
 </resources>

@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:padding="12dp">
 
-        <!-- Изображение на героя (кръгло) -->
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/heroImage"
             android:layout_width="80dp"
@@ -24,7 +23,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Име на героя -->
         <TextView
             android:id="@+id/heroName"
             android:layout_width="0dp"
@@ -38,7 +36,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Роля (badge с заоблен фон) -->
         <TextView
             android:id="@+id/heroRole"
             android:layout_width="wrap_content"

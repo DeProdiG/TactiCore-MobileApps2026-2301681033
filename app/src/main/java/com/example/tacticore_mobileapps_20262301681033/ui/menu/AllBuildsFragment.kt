@@ -1,9 +1,11 @@
 package com.example.tacticore.ui.allbuilds
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -20,6 +22,8 @@ class AllBuildsFragment : Fragment() {
 
     private lateinit var repository: HeroRepository
     private lateinit var recyclerView: RecyclerView
+    private lateinit var heroNames: List<String>
+    private lateinit var heroIds: List<Int>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,15 +35,43 @@ class AllBuildsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = view.findViewById(R.id.recyclerViewAllBuilds)
+        val fabAddBuild = view.findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.fabAddBuild)
+
         repository = (requireActivity().application as TacticoreApplication).repository
+
+        val heroes = repository.getHeroes()
+        heroNames = heroes.map { it.name }
+        heroIds = heroes.map { it.id }
+
+        fabAddBuild.setOnClickListener {
+            showHeroSelectionDialog()
+        }
 
         loadAllBuilds()
     }
 
+    private fun showHeroSelectionDialog() {
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, heroNames)
+        AlertDialog.Builder(requireContext())
+            .setTitle("Избери герой за нов build")
+            .setAdapter(adapter) { _, which ->
+                val heroId = heroIds[which]
+                val heroName = heroNames[which]
+                val bundle = Bundle().apply {
+                    putInt("heroId", heroId)
+                    putString("heroName", heroName)
+                }
+                findNavController().navigate(R.id.heroDetailFragment, bundle)
+            }
+            .setNegativeButton("Отказ", null)
+            .show()
+    }
+
     private fun loadAllBuilds() {
         lifecycleScope.launch {
-            val builds = repository.getAllBuilds()  // ще имплементираме този метод
+            val builds = repository.getAllBuilds()
             if (builds.isEmpty()) {
+                recyclerView.adapter = null
                 Toast.makeText(requireContext(), "Няма създадени builds", Toast.LENGTH_SHORT).show()
             } else {
                 val adapter = BuildListAdapter(
@@ -59,14 +91,13 @@ class AllBuildsFragment : Fragment() {
                         findNavController().navigate(R.id.heroDetailFragment, bundle)
                     },
                     onBuildDelete = { build ->
-                        // Изтриване с потвърждение
-                        android.app.AlertDialog.Builder(requireContext())
+                        AlertDialog.Builder(requireContext())
                             .setTitle("Изтриване")
                             .setMessage("Сигурни ли сте?")
                             .setPositiveButton("Да") { _, _ ->
                                 lifecycleScope.launch {
                                     repository.deleteBuildById(build.id)
-                                    loadAllBuilds()
+                                    loadAllBuilds() // презареждаме
                                 }
                             }
                             .setNegativeButton("Не", null)

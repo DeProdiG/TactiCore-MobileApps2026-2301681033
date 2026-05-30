@@ -51,6 +51,7 @@ class BuildListFragment : Fragment() {
             val bundle = Bundle().apply {
                 putInt("heroId", heroId)
                 putString("heroName", heroName)
+                putBoolean("forceNewBuild", true)
             }
             findNavController().navigate(R.id.heroDetailFragment, bundle)
         }

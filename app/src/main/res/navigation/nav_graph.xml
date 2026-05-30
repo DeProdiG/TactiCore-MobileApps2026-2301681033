@@ -66,7 +66,7 @@
     <fragment
         android:id="@+id/counterFragment"
         android:name="com.example.tacticore.ui.counter.CounterFragment"
-        android:label="Кой контрира?"
+        android:label="Tacticore"
         tools:layout="@layout/fragment_counter" />
 
     <fragment
@@ -82,23 +82,22 @@
             app:argType="string" />
     </fragment>
 
-    <!-- Нови дестинации за менюто -->
     <fragment
         android:id="@+id/allBuildsFragment"
         android:name="com.example.tacticore.ui.allbuilds.AllBuildsFragment"
-        android:label="Всички builds"
+        android:label="Tacticore"
         tools:layout="@layout/fragment_all_builds" />
 
     <fragment
         android:id="@+id/contactsFragment"
         android:name="com.example.tacticore.ui.contacts.ContactsFragment"
-        android:label="Контакти"
+        android:label="Tacticore"
         tools:layout="@layout/fragment_contacts" />
 
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.example.tacticore.ui.about.AboutFragment"
-        android:label="За нас"
+        android:label="Tacticore"
         tools:layout="@layout/fragment_about" />
 
 </navigation>

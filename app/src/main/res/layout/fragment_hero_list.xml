@@ -52,7 +52,6 @@
             app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Търсачка (Material 3 Outlined Box) без custom атрибути -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/searchLayout"
         android:layout_width="0dp"
@@ -78,7 +77,6 @@
             android:imeOptions="actionSearch" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Spinner филтър -->
     <Spinner
         android:id="@+id/spinnerRoleFilter"
         android:layout_width="0dp"

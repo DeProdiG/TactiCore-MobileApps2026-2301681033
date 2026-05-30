@@ -27,6 +27,7 @@ class HeroDetailFragment : Fragment() {
     private lateinit var currentModeFields: View
     private var currentBuildId: Long = 0
     private var isEditMode = false
+    private var forceNewBuild = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,8 +49,10 @@ class HeroDetailFragment : Fragment() {
 
         repository = (requireActivity().application as TacticoreApplication).repository
         val hero = repository.getHeroById(heroId)
+        heroName = hero?.name ?: ""
+
+        // Инициализация на UI за героя
         if (hero != null) {
-            heroName = hero.name
             binding.heroName.text = hero.name
             binding.heroRole.text = hero.role
             binding.heroDescription.text = hero.description
@@ -65,15 +68,19 @@ class HeroDetailFragment : Fragment() {
             binding.heroRole.setPadding(24, 6, 24, 6)
         }
 
+        // Настройка на спинъра за избор на режим
         val modes = resources.getStringArray(R.array.modes_array)
         val modeAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, modes)
         modeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerMode.adapter = modeAdapter
 
+        // Проверка за preloadBuildId (редактиране) и forceNewBuild (нов build)
         currentBuildId = arguments?.getLong("preloadBuildId") ?: 0L
         isEditMode = currentBuildId != 0L
+        forceNewBuild = arguments?.getBoolean("forceNewBuild") ?: false
 
         if (isEditMode) {
+            // Редактиране на съществуващ build
             val preloadMode = arguments?.getString("preloadMode") ?: "stadium"
             currentMode = preloadMode
             val modePosition = if (preloadMode == "stadium") 0 else 1
@@ -84,7 +91,6 @@ class HeroDetailFragment : Fragment() {
             binding.ratingBar.rating = (arguments?.getInt("preloadRating") ?: 3).toFloat()
 
             switchModeFields()
-
             when (currentMode) {
                 "stadium" -> {
                     currentModeFields.findViewById<EditText>(R.id.etStadiumItems)?.setText(arguments?.getString("preloadStadiumItems") ?: "")
@@ -98,28 +104,40 @@ class HeroDetailFragment : Fragment() {
 
             binding.btnSave.text = "Запази промени"
             binding.btnDelete.text = "Откажи"
-            binding.btnDelete.setOnClickListener {
-                navigateToBuildList()
-            }
-            binding.btnSave.setOnClickListener {
-                updateCurrentBuild()
-            }
+            binding.btnDelete.setOnClickListener { navigateToBuildList() }
+            binding.btnSave.setOnClickListener { updateCurrentBuild() }
         } else {
+            // Нов build (или отваряне без preload)
             binding.spinnerMode.isEnabled = true
             binding.btnSave.text = "Запази"
             binding.btnDelete.text = "Изтрий"
             binding.btnSave.setOnClickListener { saveNewBuild() }
             binding.btnDelete.setOnClickListener { deleteCurrentBuild() }
-            binding.spinnerMode.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    currentMode = if (position == 0) "stadium" else "quickplay"
-                    switchModeFields()
-                    loadBuildForCurrentMode()
+
+            if (forceNewBuild) {
+                switchModeFields()
+                clearModeFields()
+                currentBuildId = 0
+                binding.spinnerMode.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                        currentMode = if (position == 0) "stadium" else "quickplay"
+                        switchModeFields()
+                        clearModeFields()
+                    }
+                    override fun onNothingSelected(parent: AdapterView<*>?) {}
                 }
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            } else {
+                binding.spinnerMode.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                        currentMode = if (position == 0) "stadium" else "quickplay"
+                        switchModeFields()
+                        loadBuildForCurrentMode()
+                    }
+                    override fun onNothingSelected(parent: AdapterView<*>?) {}
+                }
+                switchModeFields()
+                loadBuildForCurrentMode()
             }
-            switchModeFields()
-            loadBuildForCurrentMode()
         }
 
         binding.btnShowAllBuilds.setOnClickListener {
@@ -145,6 +163,59 @@ class HeroDetailFragment : Fragment() {
             }
             val qrData = "$heroName|$modeText|$notes|$rating$extraData"
             QRGenerator.showQRCodeDialog(requireContext(), qrData)
+        }
+    }
+
+    private fun switchModeFields() {
+        val inflater = LayoutInflater.from(requireContext())
+        currentModeFields = when (currentMode) {
+            "stadium" -> inflater.inflate(R.layout.stadium_fields, binding.modeSpecificContainer, false)
+            else -> inflater.inflate(R.layout.quickplay_fields, binding.modeSpecificContainer, false)
+        }
+        binding.modeSpecificContainer.removeAllViews()
+        binding.modeSpecificContainer.addView(currentModeFields)
+    }
+
+    private fun loadBuildForCurrentMode() {
+        lifecycleScope.launch {
+            val build = repository.getBuildForHero(heroId, currentMode)
+            updateUIWithBuild(build)
+        }
+    }
+
+    private fun updateUIWithBuild(build: HeroBuild?) {
+        if (build != null) {
+            currentBuildId = build.id
+            binding.etNotes.setText(build.userNotes)
+            binding.ratingBar.rating = build.rating.toFloat()
+            when (currentMode) {
+                "stadium" -> {
+                    currentModeFields.findViewById<EditText>(R.id.etStadiumItems)?.setText(build.stadiumItems ?: "")
+                    currentModeFields.findViewById<EditText>(R.id.etStadiumGadgets)?.setText(build.stadiumGadgets ?: "")
+                    currentModeFields.findViewById<EditText>(R.id.etStadiumPower)?.setText(build.stadiumPower ?: "")
+                }
+                "quickplay" -> {
+                    currentModeFields.findViewById<EditText>(R.id.etQuickPlayPerks)?.setText(build.quickPlayPerks ?: "")
+                }
+            }
+        } else {
+            clearModeFields()
+            currentBuildId = 0
+        }
+    }
+
+    private fun clearModeFields() {
+        binding.etNotes.setText("")
+        binding.ratingBar.rating = 3f
+        when (currentMode) {
+            "stadium" -> {
+                currentModeFields.findViewById<EditText>(R.id.etStadiumItems)?.setText("")
+                currentModeFields.findViewById<EditText>(R.id.etStadiumGadgets)?.setText("")
+                currentModeFields.findViewById<EditText>(R.id.etStadiumPower)?.setText("")
+            }
+            "quickplay" -> {
+                currentModeFields.findViewById<EditText>(R.id.etQuickPlayPerks)?.setText("")
+            }
         }
     }
 
@@ -203,59 +274,6 @@ class HeroDetailFragment : Fragment() {
             }
             .setNegativeButton("Не", null)
             .show()
-    }
-
-    private fun switchModeFields() {
-        val inflater = LayoutInflater.from(requireContext())
-        currentModeFields = when (currentMode) {
-            "stadium" -> inflater.inflate(R.layout.stadium_fields, binding.modeSpecificContainer, false)
-            else -> inflater.inflate(R.layout.quickplay_fields, binding.modeSpecificContainer, false)
-        }
-        binding.modeSpecificContainer.removeAllViews()
-        binding.modeSpecificContainer.addView(currentModeFields)
-    }
-
-    private fun loadBuildForCurrentMode() {
-        lifecycleScope.launch {
-            val build = repository.getBuildForHero(heroId, currentMode)
-            updateUIWithBuild(build)
-        }
-    }
-
-    private fun updateUIWithBuild(build: HeroBuild?) {
-        if (build != null) {
-            currentBuildId = build.id
-            binding.etNotes.setText(build.userNotes)
-            binding.ratingBar.rating = build.rating.toFloat()
-            when (currentMode) {
-                "stadium" -> {
-                    currentModeFields.findViewById<EditText>(R.id.etStadiumItems)?.setText(build.stadiumItems ?: "")
-                    currentModeFields.findViewById<EditText>(R.id.etStadiumGadgets)?.setText(build.stadiumGadgets ?: "")
-                    currentModeFields.findViewById<EditText>(R.id.etStadiumPower)?.setText(build.stadiumPower ?: "")
-                }
-                "quickplay" -> {
-                    currentModeFields.findViewById<EditText>(R.id.etQuickPlayPerks)?.setText(build.quickPlayPerks ?: "")
-                }
-            }
-        } else {
-            clearModeFields()
-            currentBuildId = 0
-        }
-    }
-
-    private fun clearModeFields() {
-        binding.etNotes.setText("")
-        binding.ratingBar.rating = 3f
-        when (currentMode) {
-            "stadium" -> {
-                currentModeFields.findViewById<EditText>(R.id.etStadiumItems)?.setText("")
-                currentModeFields.findViewById<EditText>(R.id.etStadiumGadgets)?.setText("")
-                currentModeFields.findViewById<EditText>(R.id.etStadiumPower)?.setText("")
-            }
-            "quickplay" -> {
-                currentModeFields.findViewById<EditText>(R.id.etQuickPlayPerks)?.setText("")
-            }
-        }
     }
 
     private fun navigateToBuildList() {

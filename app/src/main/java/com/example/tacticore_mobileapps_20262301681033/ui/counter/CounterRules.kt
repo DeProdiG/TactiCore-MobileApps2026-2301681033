@@ -7,7 +7,7 @@ object CounterRules {
         "Mercy" to listOf("Genji", "Tracer", "Widowmaker", "Cassidy", "Echo", "Roadhoag", "Winston"),
         "Genji" to listOf("Winston", "Moira", "Ana", "Mei", "Symmetra", "Zarya"),
         "Winston" to listOf("Junkrat", "Bastion", "Zarya", "Pharah", "Ana", "Brigitte"),
-        "D.va" to listOf("Zarya", "Winston", "Symmetra", "Bastion", "Sojourn", "Moira"),
+        "D.Va" to listOf("Zarya", "Winston", "Symmetra", "Bastion", "Sojourn", "Moira"),
         "Doomfist" to listOf("Sombra", "Tracer", "Bastion", "Genji", "Ana", "Brigitte"),
         "Junker Queen" to listOf("Wrecking ball", "Widowmaker", "Ana", "Lucio", "Kiriko"),
         "Mauga" to listOf("Doomfist", "Wrecking ball", "Mauga", "Sombra", "Zenyatta", "Kiriko"),

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="220dp"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="8dp"
+    android:backgroundTint="#44000D"
+    android:layout_gravity="end">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/menu_home"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Tacticore"
+            android:textColor="#F9D276"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:background="?attr/selectableItemBackground"
+            android:padding="12dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F9D276"
+            android:layout_marginVertical="4dp" />
+
+        <TextView
+            android:id="@+id/menu_all_builds"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Създадени builds"
+            android:textColor="#F9D276"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:background="?attr/selectableItemBackground"
+            android:padding="12dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F9D276"
+            android:layout_marginVertical="4dp" />
+
+        <TextView
+            android:id="@+id/menu_counter"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Контри"
+            android:textColor="#F9D276"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:background="?attr/selectableItemBackground"
+            android:padding="12dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F9D276"
+            android:layout_marginVertical="4dp" />
+
+        <TextView
+            android:id="@+id/menu_contacts"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Контакти"
+            android:textColor="#F9D276"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:background="?attr/selectableItemBackground"
+            android:padding="12dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F9D276"
+            android:layout_marginVertical="4dp" />
+
+        <TextView
+            android:id="@+id/menu_about"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="За нас"
+            android:textColor="#F9D276"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:background="?attr/selectableItemBackground"
+            android:padding="12dp" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
