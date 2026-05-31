@@ -1,13 +1,12 @@
-package com.example.tacticore.ui.qr
+package com.example.tacticore_mobileapps_20262301681033.ui.qr
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.tacticore.TacticoreApplication
-import com.example.tacticore.data.HeroBuild
-import com.example.tacticore.databinding.ActivityQrScannerBinding
+import com.example.tacticore_mobileapps_20262301681033.TacticoreApplication
+import com.example.tacticore_mobileapps_20262301681033.data.HeroBuild
+import com.example.tacticore_mobileapps_20262301681033.databinding.ActivityQrScannerBinding
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
 import kotlinx.coroutines.launch
@@ -80,7 +79,11 @@ class QRScannerActivity : AppCompatActivity() {
                 )
                 lifecycleScope.launch {
                     repository.saveBuild(build)
-                    Toast.makeText(this@QRScannerActivity, "Билдът на $heroName ($mode) е импортиран", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this@QRScannerActivity,
+                        "Билдът на $heroName ($mode) е импортиран",
+                        Toast.LENGTH_LONG
+                    ).show()
                     finish()
                 }
             } else {

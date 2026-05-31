@@ -1,12 +1,12 @@
-package com.example.tacticore.ui.herolist
+package com.example.tacticore_mobileapps_20262301681033.ui.herolist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tacticore.R
-import com.example.tacticore.data.Hero
-import com.example.tacticore.databinding.ItemHeroBinding
+import com.example.tacticore_mobileapps_20262301681033.R
+import com.example.tacticore_mobileapps_20262301681033.data.Hero
+import com.example.tacticore_mobileapps_20262301681033.databinding.ItemHeroBinding
 
 class HeroListAdapter(
     private val onHeroClick: (Hero) -> Unit
@@ -32,7 +32,9 @@ class HeroListAdapter(
 
     override fun getItemCount() = heroes.size
 
-    inner class HeroViewHolder(private val binding: ItemHeroBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class HeroViewHolder(private val binding: ItemHeroBinding) : RecyclerView.ViewHolder(
+        binding.root
+    ) {
         fun bind(hero: Hero) {
             binding.heroName.text = hero.name
             binding.heroRole.text = hero.role

@@ -1,12 +1,12 @@
-package com.example.tacticore.ui.herodetail
+package com.example.tacticore_mobileapps_20262301681033.ui.herodetail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tacticore.data.Hero
-import com.example.tacticore.data.HeroBuild
-import com.example.tacticore.data.HeroRepository
+import com.example.tacticore_mobileapps_20262301681033.data.Hero
+import com.example.tacticore_mobileapps_20262301681033.data.HeroBuild
+import com.example.tacticore_mobileapps_20262301681033.data.HeroRepository
 import kotlinx.coroutines.launch
 
 class HeroDetailViewModel : ViewModel() {
@@ -40,11 +40,14 @@ class HeroDetailViewModel : ViewModel() {
         }
     }
 
-    fun saveBuild(notes: String, rating: Int,
-                  stadiumItems: String? = null,
-                  stadiumGadgets: String? = null,
-                  stadiumPower: String? = null,
-                  quickPlayPerks: String? = null) {
+    fun saveBuild(
+        notes: String,
+        rating: Int,
+        stadiumItems: String? = null,
+        stadiumGadgets: String? = null,
+        stadiumPower: String? = null,
+        quickPlayPerks: String? = null
+    ) {
         viewModelScope.launch {
             val existing = _build.value
             val build = HeroBuild(

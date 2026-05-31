@@ -1,4 +1,4 @@
-package com.example.tacticore.data
+package com.example.tacticore_mobileapps_20262301681033.data
 
 import androidx.annotation.DrawableRes
 

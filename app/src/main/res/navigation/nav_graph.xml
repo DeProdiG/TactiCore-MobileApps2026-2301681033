@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/heroListFragment"
-        android:name="com.example.tacticore.ui.herolist.HeroListFragment"
+        android:name="com.example.tacticore_mobileapps_20262301681033.ui.herolist.HeroListFragment"
         android:label="Tacticore"
         tools:layout="@layout/fragment_hero_list">
         <action
@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/heroDetailFragment"
-        android:name="com.example.tacticore.ui.herodetail.HeroDetailFragment"
+        android:name="com.example.tacticore_mobileapps_20262301681033.ui.herodetail.HeroDetailFragment"
         android:label="Детайли за герой"
         tools:layout="@layout/fragment_hero_detail">
         <argument
@@ -65,13 +65,13 @@
 
     <fragment
         android:id="@+id/counterFragment"
-        android:name="com.example.tacticore.ui.counter.CounterFragment"
+        android:name="com.example.tacticore_mobileapps_20262301681033.ui.counter.CounterFragment"
         android:label="Tacticore"
         tools:layout="@layout/fragment_counter" />
 
     <fragment
         android:id="@+id/buildListFragment"
-        android:name="com.example.tacticore.ui.buildlist.BuildListFragment"
+        android:name="com.example.tacticore_mobileapps_20262301681033.ui.buildlist.BuildListFragment"
         android:label="Запазени builds"
         tools:layout="@layout/fragment_build_list">
         <argument
@@ -84,19 +84,19 @@
 
     <fragment
         android:id="@+id/allBuildsFragment"
-        android:name="com.example.tacticore.ui.allbuilds.AllBuildsFragment"
+        android:name="com.example.tacticore_mobileapps_20262301681033.ui.allbuilds.AllBuildsFragment"
         android:label="Tacticore"
         tools:layout="@layout/fragment_all_builds" />
 
     <fragment
         android:id="@+id/contactsFragment"
-        android:name="com.example.tacticore.ui.contacts.ContactsFragment"
+        android:name="com.example.tacticore_mobileapps_20262301681033.ui.contacts.ContactsFragment"
         android:label="Tacticore"
         tools:layout="@layout/fragment_contacts" />
 
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.example.tacticore.ui.about.AboutFragment"
+        android:name="com.example.tacticore_mobileapps_20262301681033.ui.about.AboutFragment"
         android:label="Tacticore"
         tools:layout="@layout/fragment_about" />
 

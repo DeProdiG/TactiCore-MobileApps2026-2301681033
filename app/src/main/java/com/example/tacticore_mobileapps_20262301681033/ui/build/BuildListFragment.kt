@@ -1,4 +1,4 @@
-package com.example.tacticore.ui.buildlist
+package com.example.tacticore_mobileapps_20262301681033.ui.buildlist
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -9,10 +9,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.example.tacticore.R
-import com.example.tacticore.TacticoreApplication
-import com.example.tacticore.data.HeroRepository
-import com.example.tacticore.databinding.FragmentBuildListBinding
+import com.example.tacticore_mobileapps_20262301681033.R
+import com.example.tacticore_mobileapps_20262301681033.TacticoreApplication
+import com.example.tacticore_mobileapps_20262301681033.data.HeroRepository
+import com.example.tacticore_mobileapps_20262301681033.databinding.FragmentBuildListBinding
 import kotlinx.coroutines.launch
 
 class BuildListFragment : Fragment() {
@@ -24,7 +24,8 @@ class BuildListFragment : Fragment() {
     private var heroName: String = ""
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBuildListBinding.inflate(inflater, container, false)
@@ -64,7 +65,11 @@ class BuildListFragment : Fragment() {
             val builds = repository.getAllBuildsForHero(heroId)
             if (builds.isEmpty()) {
                 binding.recyclerViewBuilds.adapter = null
-                Toast.makeText(requireContext(), "Няма запазени builds. Натиснете '+' за нов.", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Няма запазени builds. Натиснете '+' за нов.",
+                    Toast.LENGTH_LONG
+                ).show()
             } else {
                 val adapter = BuildListAdapter(
                     builds = builds,
@@ -89,7 +94,11 @@ class BuildListFragment : Fragment() {
                             .setPositiveButton("Да") { _, _ ->
                                 lifecycleScope.launch {
                                     repository.deleteBuildById(build.id)
-                                    Toast.makeText(requireContext(), "Build изтрит", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "Build изтрит",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                     loadBuilds() // презареждаме списъка
                                 }
                             }

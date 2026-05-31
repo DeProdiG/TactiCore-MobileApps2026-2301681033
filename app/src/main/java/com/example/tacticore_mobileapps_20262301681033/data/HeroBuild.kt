@@ -1,4 +1,4 @@
-package com.example.tacticore.data
+package com.example.tacticore_mobileapps_20262301681033.data
 
 data class HeroBuild(
     val id: Long = 0,

@@ -1,4 +1,4 @@
-package com.example.tacticore.ui.allbuilds
+package com.example.tacticore_mobileapps_20262301681033.ui.allbuilds
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -11,11 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tacticore.R
-import com.example.tacticore.TacticoreApplication
-import com.example.tacticore.data.HeroBuild
-import com.example.tacticore.data.HeroRepository
-import com.example.tacticore.ui.buildlist.BuildListAdapter
+import com.example.tacticore_mobileapps_20262301681033.R
+import com.example.tacticore_mobileapps_20262301681033.TacticoreApplication
+import com.example.tacticore_mobileapps_20262301681033.data.HeroRepository
+import com.example.tacticore_mobileapps_20262301681033.ui.buildlist.BuildListAdapter
 import kotlinx.coroutines.launch
 
 class AllBuildsFragment : Fragment() {
@@ -26,7 +25,8 @@ class AllBuildsFragment : Fragment() {
     private lateinit var heroIds: List<Int>
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         return inflater.inflate(R.layout.fragment_all_builds, container, false)
@@ -35,7 +35,9 @@ class AllBuildsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = view.findViewById(R.id.recyclerViewAllBuilds)
-        val fabAddBuild = view.findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.fabAddBuild)
+        val fabAddBuild = view.findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(
+            R.id.fabAddBuild
+        )
 
         repository = (requireActivity().application as TacticoreApplication).repository
 

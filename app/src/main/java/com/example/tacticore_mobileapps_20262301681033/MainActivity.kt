@@ -1,12 +1,10 @@
-package com.example.tacticore
+package com.example.tacticore_mobileapps_20262301681033
 
 import android.app.Dialog
 import android.os.Bundle
-import android.view.ContextThemeWrapper
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.TextView
@@ -20,7 +18,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.tacticore.databinding.ActivityMainBinding
+import com.example.tacticore_mobileapps_20262301681033.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -97,7 +95,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         val currentDestination = navController.currentDestination
-        val showMenuButton = currentDestination != null && !topLevelDestinations.contains(currentDestination.id)
+        val showMenuButton = currentDestination != null && !topLevelDestinations.contains(
+            currentDestination.id
+        )
         menu?.findItem(R.id.action_open_drawer)?.isVisible = showMenuButton
         return super.onPrepareOptionsMenu(menu)
     }

@@ -1,11 +1,11 @@
-package com.example.tacticore.ui.qr
+package com.example.tacticore_mobileapps_20262301681033.ui.qr
 
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
-import com.example.tacticore.R
+import com.example.tacticore_mobileapps_20262301681033.R
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 

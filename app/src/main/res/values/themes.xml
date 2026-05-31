@@ -33,5 +33,8 @@
         <item name="android:itemBackground">@color/drawer_background</item>
         <item name="android:colorControlNormal">@color/drawer_text</item>
     </style>
-
+    <style name="Theme.Tacticore.Splash" parent="Theme.Tacticore">
+        <item name="android:windowBackground">@color/primary_dark</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
 </resources>

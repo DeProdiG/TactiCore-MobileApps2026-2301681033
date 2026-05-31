@@ -1,4 +1,4 @@
-package com.example.tacticore.ui.counter
+package com.example.tacticore_mobileapps_20262301681033.ui.counter
 
 object CounterRules {
     private val counters = mapOf(
@@ -22,7 +22,15 @@ object CounterRules {
         "Cassidy" to listOf("Reinhardt", "Winston", "Genji", "Cassidy", "Ana"),
         "Echo" to listOf("Winston", "Zarya", "Ashe", "Cassidy", "Soldier: 76", "Widowmaker"),
         "Hanzo" to listOf("D.va", "Wrecking ball", "Widowmaker", "Genji", "Lucio"),
-        "Junkrat" to listOf("Zarya", "Wrecking ball", "Cassidy", "Soldier: 76", "Lucio", "Brigitte", "Lifeweaver"),
+        "Junkrat" to listOf(
+            "Zarya",
+            "Wrecking ball",
+            "Cassidy",
+            "Soldier: 76",
+            "Lucio",
+            "Brigitte",
+            "Lifeweaver"
+        ),
         "Mei" to listOf("D.va", "Sombra", "Pharah", "Echo", "Kiriko"),
         "Pharah" to listOf("D.va", "Soldier: 76", "Cassidy", "Ashe", "Widowmaker", "Ana"),
         "Reaper" to listOf("Zarya", "Pharah", "Echo", "Junkrat", "Widowmaker", "Ana"),
@@ -38,8 +46,26 @@ object CounterRules {
         "Illari" to listOf("Orisa", "Zarya", "D.va", "Cassidy", "Ashe", "Widowmaker", "Baptiste", "Lifeweaver", "Lucio"),
         "Kiriko" to listOf("Roadhog", "Tracer", "Sombra", "Genji", "Mei"),
         "Lifeweaver" to listOf("Sombra", "Soldier: 76", "Lucio"),
-        "Lucio" to listOf("Winston", "Roadhog", "Soldier: 76", "Cassidy", "Symmetra", "Torbjorn", "Mei", "Moira"),
-        "Moira" to listOf("Roadhog", "Zarya", "Echo", "Pharah", "Widowmaker", "Junkrat", "Mei", "Ashe"),
+        "Lucio" to listOf(
+            "Winston",
+            "Roadhog",
+            "Soldier: 76",
+            "Cassidy",
+            "Symmetra",
+            "Torbjorn",
+            "Mei",
+            "Moira"
+        ),
+        "Moira" to listOf(
+            "Roadhog",
+            "Zarya",
+            "Echo",
+            "Pharah",
+            "Widowmaker",
+            "Junkrat",
+            "Mei",
+            "Ashe"
+        ),
         "Zenyatta" to listOf("Junkrat", "Pharah", "Cassidy", "Widowmaker", "Ashe", "Hanzo", "Tracer", "Kiriko", "Zenyatta"),
         "Anran" to listOf("Winston", "Sombra", "Kiriko", "Widowmaker"),
         "Domina" to listOf("Reaper", "Vendetta", "Mei", "Sombra", "Winston", "Moira"),

@@ -1,4 +1,4 @@
-package com.example.tacticore.ui.buildlist
+package com.example.tacticore_mobileapps_20262301681033.ui.buildlist
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tacticore.R
-import com.example.tacticore.data.HeroBuild
+import com.example.tacticore_mobileapps_20262301681033.R
+import com.example.tacticore_mobileapps_20262301681033.data.HeroBuild
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -45,7 +45,9 @@ class BuildListAdapter(
             modeText.text = mode
             notesPreview.text = build.userNotes.take(50) + if (build.userNotes.length > 50) "..." else ""
             ratingText.text = "⭐ ${build.rating}/5"
-            val date = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(Date(build.timestamp))
+            val date = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(
+                Date(build.timestamp)
+            )
             dateText.text = date
         }
     }

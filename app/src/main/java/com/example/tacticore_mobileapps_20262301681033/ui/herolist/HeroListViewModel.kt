@@ -1,12 +1,10 @@
-package com.example.tacticore.ui.herolist
+package com.example.tacticore_mobileapps_20262301681033.ui.herolist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.tacticore.data.Hero
-import com.example.tacticore.data.HeroRepository
-import kotlinx.coroutines.launch
+import com.example.tacticore_mobileapps_20262301681033.data.Hero
+import com.example.tacticore_mobileapps_20262301681033.data.HeroRepository
 
 class HeroListViewModel(private val repository: HeroRepository) : ViewModel() {
 
@@ -42,7 +40,7 @@ class HeroListViewModel(private val repository: HeroRepository) : ViewModel() {
         val heroes = _allHeroes.value ?: return
         val filtered = heroes.filter { hero ->
             (currentRole == "All" || hero.role.equals(currentRole, ignoreCase = true)) &&
-                    (currentQuery.isEmpty() || hero.name.lowercase().contains(currentQuery))
+                (currentQuery.isEmpty() || hero.name.lowercase().contains(currentQuery))
         }
         _filteredHeroes.value = filtered
     }

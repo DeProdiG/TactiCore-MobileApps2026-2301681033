@@ -1,14 +1,13 @@
-package com.example.tacticore.ui.counter
+package com.example.tacticore_mobileapps_20262301681033.ui.counter
 
 import android.os.Bundle
 import android.view.*
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import com.example.tacticore.R
-import com.example.tacticore.TacticoreApplication
-import com.example.tacticore.databinding.FragmentCounterBinding
+import com.example.tacticore_mobileapps_20262301681033.R
+import com.example.tacticore_mobileapps_20262301681033.TacticoreApplication
+import com.example.tacticore_mobileapps_20262301681033.databinding.FragmentCounterBinding
 
 class CounterFragment : Fragment() {
 
@@ -16,7 +15,8 @@ class CounterFragment : Fragment() {
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCounterBinding.inflate(inflater, container, false)
@@ -49,7 +49,9 @@ class CounterFragment : Fragment() {
                 binding.tvResult.text = formatted
             } else {
                 binding.tvResult.text = "❌ Нямаме правила за $selectedEnemy още.\nНо можеш да пробваш с Winston, Reaper или Pharah!"
-                binding.tvResult.setTextColor(resources.getColor(android.R.color.holo_red_dark, null))
+                binding.tvResult.setTextColor(
+                    resources.getColor(android.R.color.holo_red_dark, null)
+                )
             }
             // Анимация на бутона
             binding.btnFindCounter.animate().scaleX(0.98f).scaleY(0.98f).setDuration(100)

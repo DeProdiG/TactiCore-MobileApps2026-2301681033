@@ -1,4 +1,4 @@
-package com.example.tacticore.ui.herodetail
+package com.example.tacticore_mobileapps_20262301681033.ui.herodetail
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -8,12 +8,12 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.example.tacticore.R
-import com.example.tacticore.TacticoreApplication
-import com.example.tacticore.databinding.FragmentHeroDetailBinding
-import com.example.tacticore.data.HeroBuild
-import com.example.tacticore.data.HeroRepository
-import com.example.tacticore.ui.qr.QRGenerator
+import com.example.tacticore_mobileapps_20262301681033.R
+import com.example.tacticore_mobileapps_20262301681033.TacticoreApplication
+import com.example.tacticore_mobileapps_20262301681033.data.HeroBuild
+import com.example.tacticore_mobileapps_20262301681033.data.HeroRepository
+import com.example.tacticore_mobileapps_20262301681033.databinding.FragmentHeroDetailBinding
+import com.example.tacticore_mobileapps_20262301681033.ui.qr.QRGenerator
 import kotlinx.coroutines.launch
 
 class HeroDetailFragment : Fragment() {
@@ -30,7 +30,8 @@ class HeroDetailFragment : Fragment() {
     private var forceNewBuild = false
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHeroDetailBinding.inflate(inflater, container, false)
@@ -70,7 +71,11 @@ class HeroDetailFragment : Fragment() {
 
         // Настройка на спинъра за избор на режим
         val modes = resources.getStringArray(R.array.modes_array)
-        val modeAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, modes)
+        val modeAdapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            modes
+        )
         modeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerMode.adapter = modeAdapter
 
@@ -93,12 +98,20 @@ class HeroDetailFragment : Fragment() {
             switchModeFields()
             when (currentMode) {
                 "stadium" -> {
-                    currentModeFields.findViewById<EditText>(R.id.etStadiumItems)?.setText(arguments?.getString("preloadStadiumItems") ?: "")
-                    currentModeFields.findViewById<EditText>(R.id.etStadiumGadgets)?.setText(arguments?.getString("preloadStadiumGadgets") ?: "")
-                    currentModeFields.findViewById<EditText>(R.id.etStadiumPower)?.setText(arguments?.getString("preloadStadiumPower") ?: "")
+                    currentModeFields.findViewById<EditText>(R.id.etStadiumItems)?.setText(
+                        arguments?.getString("preloadStadiumItems") ?: ""
+                    )
+                    currentModeFields.findViewById<EditText>(R.id.etStadiumGadgets)?.setText(
+                        arguments?.getString("preloadStadiumGadgets") ?: ""
+                    )
+                    currentModeFields.findViewById<EditText>(R.id.etStadiumPower)?.setText(
+                        arguments?.getString("preloadStadiumPower") ?: ""
+                    )
                 }
                 "quickplay" -> {
-                    currentModeFields.findViewById<EditText>(R.id.etQuickPlayPerks)?.setText(arguments?.getString("preloadQuickPlayPerks") ?: "")
+                    currentModeFields.findViewById<EditText>(R.id.etQuickPlayPerks)?.setText(
+                        arguments?.getString("preloadQuickPlayPerks") ?: ""
+                    )
                 }
             }
 
@@ -119,7 +132,12 @@ class HeroDetailFragment : Fragment() {
                 clearModeFields()
                 currentBuildId = 0
                 binding.spinnerMode.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
                         currentMode = if (position == 0) "stadium" else "quickplay"
                         switchModeFields()
                         clearModeFields()
@@ -128,7 +146,12 @@ class HeroDetailFragment : Fragment() {
                 }
             } else {
                 binding.spinnerMode.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
                         currentMode = if (position == 0) "stadium" else "quickplay"
                         switchModeFields()
                         loadBuildForCurrentMode()
@@ -169,8 +192,16 @@ class HeroDetailFragment : Fragment() {
     private fun switchModeFields() {
         val inflater = LayoutInflater.from(requireContext())
         currentModeFields = when (currentMode) {
-            "stadium" -> inflater.inflate(R.layout.stadium_fields, binding.modeSpecificContainer, false)
-            else -> inflater.inflate(R.layout.quickplay_fields, binding.modeSpecificContainer, false)
+            "stadium" -> inflater.inflate(
+                R.layout.stadium_fields,
+                binding.modeSpecificContainer,
+                false
+            )
+            else -> inflater.inflate(
+                R.layout.quickplay_fields,
+                binding.modeSpecificContainer,
+                false
+            )
         }
         binding.modeSpecificContainer.removeAllViews()
         binding.modeSpecificContainer.addView(currentModeFields)
@@ -190,12 +221,20 @@ class HeroDetailFragment : Fragment() {
             binding.ratingBar.rating = build.rating.toFloat()
             when (currentMode) {
                 "stadium" -> {
-                    currentModeFields.findViewById<EditText>(R.id.etStadiumItems)?.setText(build.stadiumItems ?: "")
-                    currentModeFields.findViewById<EditText>(R.id.etStadiumGadgets)?.setText(build.stadiumGadgets ?: "")
-                    currentModeFields.findViewById<EditText>(R.id.etStadiumPower)?.setText(build.stadiumPower ?: "")
+                    currentModeFields.findViewById<EditText>(R.id.etStadiumItems)?.setText(
+                        build.stadiumItems ?: ""
+                    )
+                    currentModeFields.findViewById<EditText>(R.id.etStadiumGadgets)?.setText(
+                        build.stadiumGadgets ?: ""
+                    )
+                    currentModeFields.findViewById<EditText>(R.id.etStadiumPower)?.setText(
+                        build.stadiumPower ?: ""
+                    )
                 }
                 "quickplay" -> {
-                    currentModeFields.findViewById<EditText>(R.id.etQuickPlayPerks)?.setText(build.quickPlayPerks ?: "")
+                    currentModeFields.findViewById<EditText>(R.id.etQuickPlayPerks)?.setText(
+                        build.quickPlayPerks ?: ""
+                    )
                 }
             }
         } else {
@@ -228,10 +267,34 @@ class HeroDetailFragment : Fragment() {
             mode = currentMode,
             userNotes = notes,
             rating = rating,
-            stadiumItems = if (currentMode == "stadium") currentModeFields.findViewById<EditText>(R.id.etStadiumItems).text.toString() else null,
-            stadiumGadgets = if (currentMode == "stadium") currentModeFields.findViewById<EditText>(R.id.etStadiumGadgets).text.toString() else null,
-            stadiumPower = if (currentMode == "stadium") currentModeFields.findViewById<EditText>(R.id.etStadiumPower).text.toString() else null,
-            quickPlayPerks = if (currentMode == "quickplay") currentModeFields.findViewById<EditText>(R.id.etQuickPlayPerks).text.toString() else null
+            stadiumItems = if (currentMode == "stadium") {
+                currentModeFields.findViewById<EditText>(
+                    R.id.etStadiumItems
+                ).text.toString()
+            } else {
+                null
+            },
+            stadiumGadgets = if (currentMode == "stadium") {
+                currentModeFields.findViewById<EditText>(
+                    R.id.etStadiumGadgets
+                ).text.toString()
+            } else {
+                null
+            },
+            stadiumPower = if (currentMode == "stadium") {
+                currentModeFields.findViewById<EditText>(
+                    R.id.etStadiumPower
+                ).text.toString()
+            } else {
+                null
+            },
+            quickPlayPerks = if (currentMode == "quickplay") {
+                currentModeFields.findViewById<EditText>(
+                    R.id.etQuickPlayPerks
+                ).text.toString()
+            } else {
+                null
+            }
         )
         lifecycleScope.launch {
             repository.saveBuild(build)
@@ -248,10 +311,34 @@ class HeroDetailFragment : Fragment() {
             mode = currentMode,
             userNotes = notes,
             rating = rating,
-            stadiumItems = if (currentMode == "stadium") currentModeFields.findViewById<EditText>(R.id.etStadiumItems).text.toString() else null,
-            stadiumGadgets = if (currentMode == "stadium") currentModeFields.findViewById<EditText>(R.id.etStadiumGadgets).text.toString() else null,
-            stadiumPower = if (currentMode == "stadium") currentModeFields.findViewById<EditText>(R.id.etStadiumPower).text.toString() else null,
-            quickPlayPerks = if (currentMode == "quickplay") currentModeFields.findViewById<EditText>(R.id.etQuickPlayPerks).text.toString() else null
+            stadiumItems = if (currentMode == "stadium") {
+                currentModeFields.findViewById<EditText>(
+                    R.id.etStadiumItems
+                ).text.toString()
+            } else {
+                null
+            },
+            stadiumGadgets = if (currentMode == "stadium") {
+                currentModeFields.findViewById<EditText>(
+                    R.id.etStadiumGadgets
+                ).text.toString()
+            } else {
+                null
+            },
+            stadiumPower = if (currentMode == "stadium") {
+                currentModeFields.findViewById<EditText>(
+                    R.id.etStadiumPower
+                ).text.toString()
+            } else {
+                null
+            },
+            quickPlayPerks = if (currentMode == "quickplay") {
+                currentModeFields.findViewById<EditText>(
+                    R.id.etQuickPlayPerks
+                ).text.toString()
+            } else {
+                null
+            }
         )
         lifecycleScope.launch {
             repository.saveBuild(build)
