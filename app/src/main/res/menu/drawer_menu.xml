@@ -2,17 +2,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/heroListFragment"
+        android:icon="@drawable/ic_swords"
         android:title="Герои" />
     <item
         android:id="@+id/allBuildsFragment"
+        android:icon="@drawable/ic_builds"
         android:title="Създадени builds" />
     <item
         android:id="@+id/counterFragment"
+        android:icon="@drawable/ic_counter"
         android:title="Контри" />
     <item
         android:id="@+id/contactsFragment"
+        android:icon="@drawable/ic_contacts"
         android:title="Контакти" />
     <item
         android:id="@+id/aboutFragment"
+        android:icon="@drawable/ic_about"
         android:title="За нас" />
+    <item
+        android:id="@+id/nav_dark_mode"
+        android:icon="@drawable/ic_dark_mode"
+        android:title="Тъмна тема" />
 </menu>

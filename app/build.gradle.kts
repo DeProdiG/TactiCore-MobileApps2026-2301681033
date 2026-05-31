@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.tacticore_mobileapps_20262301681033"
+    namespace = "com.example.tacticore"
     compileSdk = 34
 
     defaultConfig {
@@ -85,6 +85,4 @@ dependencies {
     androidTestImplementation("androidx.test:runner:1.5.2")
     androidTestImplementation("androidx.test:rules:1.5.0")
     androidTestImplementation("androidx.navigation:navigation-testing:2.7.6")
-
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.12")
 }

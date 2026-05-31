@@ -2,4 +2,9 @@
     <string name="app_name">TactiCore-MobileApps-20262301681033</string>
     <string name="navigation_drawer_open">Отвори меню</string>
     <string name="navigation_drawer_close">Затвори меню</string>
+    <string name="app_name_splash">TACTICORE</string>
+    <string name="app_logo_desc">Tacticore logo</string>
+    <string name="build_rating">⭐ %d/5</string>
+    <string name="build_notes_preview_truncated">%s…</string>
+    <string name="date_format">dd/MM/yyyy HH:mm</string>
 </resources>
