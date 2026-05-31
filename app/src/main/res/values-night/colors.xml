@@ -12,7 +12,6 @@
     <color name="role_support">#83142C</color>  <!-- тъмно червено за Support -->
     <color name="role_unknown">#44000D</color>
 
-    <!-- Стандартни неутрални цветове -->
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="purple_500">#AD1D45</color>

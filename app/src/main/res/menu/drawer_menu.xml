@@ -1,34 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/heroListFragment"
-        android:icon="@drawable/ic_swords"
-        android:title="Герои"
-        tools:ignore="HardcodedText" />
-    <item
-        android:id="@+id/allBuildsFragment"
-        android:icon="@drawable/ic_builds"
-        android:title="Създадени builds"
-        tools:ignore="HardcodedText" />
-    <item
-        android:id="@+id/counterFragment"
-        android:icon="@drawable/ic_counter"
-        android:title="Контри"
-        tools:ignore="HardcodedText" />
-    <item
-        android:id="@+id/contactsFragment"
-        android:icon="@drawable/ic_contacts"
-        android:title="Контакти"
-        tools:ignore="HardcodedText" />
-    <item
-        android:id="@+id/aboutFragment"
-        android:icon="@drawable/ic_about"
-        android:title="За нас"
-        tools:ignore="HardcodedText" />
-    <item
-        android:id="@+id/nav_dark_mode"
-        android:icon="@drawable/ic_dark_mode"
-        android:title="Тъмна тема"
-        tools:ignore="HardcodedText" />
+
+<item
+    android:id="@+id/heroListFragment"
+    android:icon="@drawable/ic_swords"
+    android:title="Герои"
+    tools:ignore="HardcodedText" />
+<item
+    android:id="@+id/allBuildsFragment"
+    android:icon="@drawable/ic_builds"
+    android:title="Създадени builds"
+    tools:ignore="HardcodedText" />
+<item
+    android:id="@+id/counterFragment"
+    android:icon="@drawable/ic_counter"
+    android:title="Контри"
+    tools:ignore="HardcodedText" />
+<item
+    android:id="@+id/contactsFragment"
+    android:icon="@drawable/ic_contacts"
+    android:title="Контакти"
+    tools:ignore="HardcodedText" />
+<item
+    android:id="@+id/aboutFragment"
+    android:icon="@drawable/ic_about"
+    android:title="За нас"
+    tools:ignore="HardcodedText" />
+<item
+    android:id="@+id/nav_dark_mode"
+    android:icon="@drawable/ic_dark_mode"
+    android:title="Тъмна тема"
+    tools:ignore="HardcodedText" />
+<item
+    android:id="@+id/nav_account"
+    android:icon="@drawable/ic_account"
+    android:title="Акаунт"
+    tools:ignore="HardcodedText" />
+<item
+    android:id="@+id/nav_register"
+    android:icon="@android:drawable/ic_menu_add"
+    android:title="Регистрация/Вход"
+    tools:ignore="HardcodedText" />
+<item
+    android:id="@+id/nav_logout"
+    android:icon="@android:drawable/ic_menu_close_clear_cancel"
+    android:title="Изход"
+    tools:ignore="HardcodedText" />
 </menu>

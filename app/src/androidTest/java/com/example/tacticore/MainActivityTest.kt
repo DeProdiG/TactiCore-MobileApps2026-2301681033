@@ -19,7 +19,6 @@ class MainActivityTest {
 
     @Test
     fun testHeroListClickNavigatesToDetail() {
-        // Клик върху първия герой в RecyclerView (позиция 0)
         onView(withId(R.id.recyclerViewHeroes))
             .perform(
                 RecyclerViewActions.actionOnItemAtPosition<androidx.recyclerview.widget.RecyclerView.ViewHolder>(
@@ -28,7 +27,6 @@ class MainActivityTest {
                 )
             )
 
-        // Проверка дали детайлният фрагмент се е заредил
         onView(withId(R.id.heroName)).check(matches(isDisplayed()))
     }
 }

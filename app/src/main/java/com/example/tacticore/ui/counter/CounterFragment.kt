@@ -49,12 +49,11 @@ class CounterFragment : Fragment() {
                 val formatted = counters.joinToString("\n• ", "• ")
                 binding.tvResult.text = formatted
             } else {
-                binding.tvResult.text = "❌ Нямаме правила за $selectedEnemy още.\nНо можеш да пробваш с Winston, Reaper или Pharah!"
+                binding.tvResult.text = "Нямаме правила за $selectedEnemy още.\nНо можеш да пробваш с Winston, Reaper или Pharah!"
                 binding.tvResult.setTextColor(
                     resources.getColor(android.R.color.holo_red_dark, null)
                 )
             }
-            // Анимация на бутона
             binding.btnFindCounter.animate().scaleX(0.98f).scaleY(0.98f).setDuration(100)
                 .withEndAction {
                     binding.btnFindCounter.animate().scaleX(1f).scaleY(1f).setDuration(100).start()

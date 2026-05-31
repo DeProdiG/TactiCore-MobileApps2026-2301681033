@@ -6,10 +6,10 @@ import com.example.tacticore.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class HeroRepository(context: Context) {
+class HeroRepository(context: Context, private val userId: Long) {
+
     private val dbHelper = DatabaseHelper(context)
 
-    // Актуален списък с всички герои от Overwatch
     fun getHeroes(): List<Hero> = listOf(
         Hero(
             1,
@@ -371,54 +371,38 @@ class HeroRepository(context: Context) {
     )
 
     fun getHeroById(id: Int): Hero? = getHeroes().find { it.id == id }
-
     suspend fun getBuildForHero(heroId: Int, mode: String): HeroBuild? = withContext(Dispatchers.IO) {
         val db = dbHelper.readableDatabase
         val cursor = db.query(
             DatabaseHelper.TABLE_HERO_BUILDS,
             null,
-            "${DatabaseHelper.COL_HERO_ID} = ? AND ${DatabaseHelper.COL_MODE} = ?",
-            arrayOf(heroId.toString(), mode),
-            null,
-            null,
-            null
+            "${DatabaseHelper.COL_USER_ID} = ? AND ${DatabaseHelper.COL_HERO_ID} = ? AND ${DatabaseHelper.COL_MODE} = ?",
+            arrayOf(userId.toString(), heroId.toString(), mode),
+            null, null, null
         )
         val build = if (cursor.moveToFirst()) {
             HeroBuild(
                 id = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_ID)),
                 heroId = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_HERO_ID)),
                 mode = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_MODE)),
-                userNotes = cursor.getString(
-                    cursor.getColumnIndexOrThrow(DatabaseHelper.COL_USER_NOTES)
-                ),
+                userNotes = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_USER_NOTES)),
                 rating = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_RATING)),
-                stadiumItems = cursor.getString(
-                    cursor.getColumnIndexOrThrow(DatabaseHelper.COL_STADIUM_ITEMS)
-                ),
-                stadiumGadgets = cursor.getString(
-                    cursor.getColumnIndexOrThrow(DatabaseHelper.COL_STADIUM_GADGETS)
-                ),
-                stadiumPower = cursor.getString(
-                    cursor.getColumnIndexOrThrow(DatabaseHelper.COL_STADIUM_POWER)
-                ),
-                quickPlayPerks = cursor.getString(
-                    cursor.getColumnIndexOrThrow(DatabaseHelper.COL_QUICKPLAY_PERKS)
-                ),
-                timestamp = cursor.getLong(
-                    cursor.getColumnIndexOrThrow(DatabaseHelper.COL_TIMESTAMP)
-                )
+                stadiumItems = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_STADIUM_ITEMS)),
+                stadiumGadgets = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_STADIUM_GADGETS)),
+                stadiumPower = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_STADIUM_POWER)),
+                quickPlayPerks = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_QUICKPLAY_PERKS)),
+                timestamp = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_TIMESTAMP))
             )
-        } else {
-            null
-        }
+        } else null
         cursor.close()
         db.close()
-        return@withContext build
+        build
     }
 
     suspend fun saveBuild(build: HeroBuild) = withContext(Dispatchers.IO) {
         val db = dbHelper.writableDatabase
         val values = ContentValues().apply {
+            put(DatabaseHelper.COL_USER_ID, userId)
             put(DatabaseHelper.COL_HERO_ID, build.heroId)
             put(DatabaseHelper.COL_MODE, build.mode)
             put(DatabaseHelper.COL_USER_NOTES, build.userNotes)
@@ -435,22 +419,41 @@ class HeroRepository(context: Context) {
             db.update(
                 DatabaseHelper.TABLE_HERO_BUILDS,
                 values,
-                "${DatabaseHelper.COL_ID} = ?",
-                arrayOf(build.id.toString())
+                "${DatabaseHelper.COL_ID} = ? AND ${DatabaseHelper.COL_USER_ID} = ?",
+                arrayOf(build.id.toString(), userId.toString())
             )
         }
         db.close()
     }
+
+    suspend fun deleteBuildById(buildId: Long) = withContext(Dispatchers.IO) {
+        val db = dbHelper.writableDatabase
+        db.delete(
+            DatabaseHelper.TABLE_HERO_BUILDS,
+            "${DatabaseHelper.COL_ID} = ? AND ${DatabaseHelper.COL_USER_ID} = ?",
+            arrayOf(buildId.toString(), userId.toString())
+        )
+        db.close()
+    }
+
+    suspend fun deleteBuild(heroId: Int, mode: String) = withContext(Dispatchers.IO) {
+        val db = dbHelper.writableDatabase
+        db.delete(
+            DatabaseHelper.TABLE_HERO_BUILDS,
+            "${DatabaseHelper.COL_USER_ID} = ? AND ${DatabaseHelper.COL_HERO_ID} = ? AND ${DatabaseHelper.COL_MODE} = ?",
+            arrayOf(userId.toString(), heroId.toString(), mode)
+        )
+        db.close()
+    }
+
     suspend fun getAllBuildsForHero(heroId: Int): List<HeroBuild> = withContext(Dispatchers.IO) {
         val db = dbHelper.readableDatabase
         val cursor = db.query(
             DatabaseHelper.TABLE_HERO_BUILDS,
             null,
-            "${DatabaseHelper.COL_HERO_ID} = ?",
-            arrayOf(heroId.toString()),
-            null,
-            null,
-            "${DatabaseHelper.COL_TIMESTAMP} DESC"
+            "${DatabaseHelper.COL_USER_ID} = ? AND ${DatabaseHelper.COL_HERO_ID} = ?",
+            arrayOf(userId.toString(), heroId.toString()),
+            null, null, "${DatabaseHelper.COL_TIMESTAMP} DESC"
         )
         val builds = mutableListOf<HeroBuild>()
         while (cursor.moveToNext()) {
@@ -459,25 +462,13 @@ class HeroRepository(context: Context) {
                     id = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_ID)),
                     heroId = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_HERO_ID)),
                     mode = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_MODE)),
-                    userNotes = cursor.getString(
-                        cursor.getColumnIndexOrThrow(DatabaseHelper.COL_USER_NOTES)
-                    ),
+                    userNotes = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_USER_NOTES)),
                     rating = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_RATING)),
-                    stadiumItems = cursor.getString(
-                        cursor.getColumnIndexOrThrow(DatabaseHelper.COL_STADIUM_ITEMS)
-                    ),
-                    stadiumGadgets = cursor.getString(
-                        cursor.getColumnIndexOrThrow(DatabaseHelper.COL_STADIUM_GADGETS)
-                    ),
-                    stadiumPower = cursor.getString(
-                        cursor.getColumnIndexOrThrow(DatabaseHelper.COL_STADIUM_POWER)
-                    ),
-                    quickPlayPerks = cursor.getString(
-                        cursor.getColumnIndexOrThrow(DatabaseHelper.COL_QUICKPLAY_PERKS)
-                    ),
-                    timestamp = cursor.getLong(
-                        cursor.getColumnIndexOrThrow(DatabaseHelper.COL_TIMESTAMP)
-                    )
+                    stadiumItems = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_STADIUM_ITEMS)),
+                    stadiumGadgets = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_STADIUM_GADGETS)),
+                    stadiumPower = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_STADIUM_POWER)),
+                    quickPlayPerks = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_QUICKPLAY_PERKS)),
+                    timestamp = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_TIMESTAMP))
                 )
             )
         }
@@ -485,16 +476,15 @@ class HeroRepository(context: Context) {
         db.close()
         builds
     }
+
     suspend fun getAllBuilds(): List<HeroBuild> = withContext(Dispatchers.IO) {
         val db = dbHelper.readableDatabase
         val cursor = db.query(
             DatabaseHelper.TABLE_HERO_BUILDS,
             null,
-            null,
-            null,
-            null,
-            null,
-            "${DatabaseHelper.COL_TIMESTAMP} DESC"
+            "${DatabaseHelper.COL_USER_ID} = ?",
+            arrayOf(userId.toString()),
+            null, null, "${DatabaseHelper.COL_TIMESTAMP} DESC"
         )
         val builds = mutableListOf<HeroBuild>()
         while (cursor.moveToNext()) {
@@ -503,48 +493,18 @@ class HeroRepository(context: Context) {
                     id = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_ID)),
                     heroId = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_HERO_ID)),
                     mode = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_MODE)),
-                    userNotes = cursor.getString(
-                        cursor.getColumnIndexOrThrow(DatabaseHelper.COL_USER_NOTES)
-                    ),
+                    userNotes = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_USER_NOTES)),
                     rating = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_RATING)),
-                    stadiumItems = cursor.getString(
-                        cursor.getColumnIndexOrThrow(DatabaseHelper.COL_STADIUM_ITEMS)
-                    ),
-                    stadiumGadgets = cursor.getString(
-                        cursor.getColumnIndexOrThrow(DatabaseHelper.COL_STADIUM_GADGETS)
-                    ),
-                    stadiumPower = cursor.getString(
-                        cursor.getColumnIndexOrThrow(DatabaseHelper.COL_STADIUM_POWER)
-                    ),
-                    quickPlayPerks = cursor.getString(
-                        cursor.getColumnIndexOrThrow(DatabaseHelper.COL_QUICKPLAY_PERKS)
-                    ),
-                    timestamp = cursor.getLong(
-                        cursor.getColumnIndexOrThrow(DatabaseHelper.COL_TIMESTAMP)
-                    )
+                    stadiumItems = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_STADIUM_ITEMS)),
+                    stadiumGadgets = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_STADIUM_GADGETS)),
+                    stadiumPower = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_STADIUM_POWER)),
+                    quickPlayPerks = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_QUICKPLAY_PERKS)),
+                    timestamp = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_TIMESTAMP))
                 )
             )
         }
         cursor.close()
         db.close()
         builds
-    }
-    suspend fun deleteBuild(heroId: Int, mode: String) = withContext(Dispatchers.IO) {
-        val db = dbHelper.writableDatabase
-        db.delete(
-            DatabaseHelper.TABLE_HERO_BUILDS,
-            "${DatabaseHelper.COL_HERO_ID} = ? AND ${DatabaseHelper.COL_MODE} = ?",
-            arrayOf(heroId.toString(), mode)
-        )
-        db.close()
-    }
-    suspend fun deleteBuildById(buildId: Long) = withContext(Dispatchers.IO) {
-        val db = dbHelper.writableDatabase
-        db.delete(
-            DatabaseHelper.TABLE_HERO_BUILDS,
-            "${DatabaseHelper.COL_ID} = ?",
-            arrayOf(buildId.toString())
-        )
-        db.close()
     }
 }

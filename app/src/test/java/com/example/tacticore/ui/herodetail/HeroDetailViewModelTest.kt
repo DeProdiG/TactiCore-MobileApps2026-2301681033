@@ -24,7 +24,7 @@ class HeroDetailViewModelTest {
     fun setup() {
         Dispatchers.setMain(StandardTestDispatcher())
         repository = mock()
-        viewModel = HeroDetailViewModel() // без параметри
+        viewModel = HeroDetailViewModel()
     }
 
     @After

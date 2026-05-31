@@ -52,7 +52,6 @@ class HeroDetailFragment : Fragment() {
         val hero = repository.getHeroById(heroId)
         heroName = hero?.name ?: ""
 
-        // Инициализация на UI за героя
         if (hero != null) {
             binding.heroName.text = hero.name
             binding.heroRole.text = hero.role
@@ -69,7 +68,6 @@ class HeroDetailFragment : Fragment() {
             binding.heroRole.setPadding(24, 6, 24, 6)
         }
 
-        // Настройка на спинъра за избор на режим
         val modes = resources.getStringArray(R.array.modes_array)
         val modeAdapter = ArrayAdapter(
             requireContext(),
@@ -79,13 +77,11 @@ class HeroDetailFragment : Fragment() {
         modeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerMode.adapter = modeAdapter
 
-        // Проверка за preloadBuildId (редактиране) и forceNewBuild (нов build)
         currentBuildId = arguments?.getLong("preloadBuildId") ?: 0L
         isEditMode = currentBuildId != 0L
         forceNewBuild = arguments?.getBoolean("forceNewBuild") ?: false
 
         if (isEditMode) {
-            // Редактиране на съществуващ build
             val preloadMode = arguments?.getString("preloadMode") ?: "stadium"
             currentMode = preloadMode
             val modePosition = if (preloadMode == "stadium") 0 else 1
@@ -120,7 +116,6 @@ class HeroDetailFragment : Fragment() {
             binding.btnDelete.setOnClickListener { navigateToBuildList() }
             binding.btnSave.setOnClickListener { updateCurrentBuild() }
         } else {
-            // Нов build (или отваряне без preload)
             binding.spinnerMode.isEnabled = true
             binding.btnSave.text = "Запази"
             binding.btnDelete.text = "Изтрий"

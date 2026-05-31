@@ -1,6 +1,7 @@
 package com.example.tacticore
 
 import android.app.Application
+import com.example.tacticore.data.AuthRepository
 import com.example.tacticore.data.HeroRepository
 
 class TacticoreApplication : Application() {
@@ -9,6 +10,12 @@ class TacticoreApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        repository = HeroRepository(applicationContext)
+        val userId = AuthRepository(this).getCurrentUserId()
+        repository = HeroRepository(applicationContext, userId)
+    }
+
+    fun refreshRepository() {
+        val userId = AuthRepository(this).getCurrentUserId()
+        repository = HeroRepository(applicationContext, userId)
     }
 }

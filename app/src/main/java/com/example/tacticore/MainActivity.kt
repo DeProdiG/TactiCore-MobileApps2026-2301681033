@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.view.Window
 import android.view.WindowManager
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
@@ -23,6 +24,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.tacticore.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
 import androidx.core.content.edit
+import com.example.tacticore.data.AuthRepository
 
 class MainActivity : AppCompatActivity() {
 
@@ -102,6 +104,32 @@ class MainActivity : AppCompatActivity() {
                         )
                     }
                     recreate()
+                    true
+                }
+                R.id.nav_register -> {
+                    // Пренасочваме към RegisterFragment
+                    navController.navigate(R.id.registerFragment)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                R.id.nav_account -> {
+                    navController.navigate(R.id.accountFragment)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+
+                R.id.nav_logout -> {
+                    AlertDialog.Builder(this)
+                        .setTitle("Изход")
+                        .setMessage("Сигурни ли сте, че искате да излезете от акаунта си?")
+                        .setPositiveButton("Да") { _, _ ->
+                            val authRepo = AuthRepository(this)
+                            authRepo.logout()
+                            navController.navigate(R.id.loginFragment)
+                            drawerLayout.closeDrawer(GravityCompat.START)
+                        }
+                        .setNegativeButton("Не", null)
+                        .show()
                     true
                 }
                 else -> false

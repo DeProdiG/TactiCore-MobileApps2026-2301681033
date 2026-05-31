@@ -23,8 +23,7 @@ class HeroRepositoryTest {
     fun setup() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         dbHelper = DatabaseHelper(context)
-        repository = HeroRepository(context)
-        // Изчистваме таблицата преди всеки тест
+        repository = HeroRepository(context, 1L)
         dbHelper.writableDatabase.execSQL("DELETE FROM ${DatabaseHelper.TABLE_HERO_BUILDS}")
     }
 

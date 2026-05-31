@@ -100,4 +100,42 @@
         android:label="Tacticore"
         tools:layout="@layout/fragment_about" />
 
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.tacticore.ui.auth.LoginFragment"
+        android:label="Вход"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_login_to_main"
+            app:destination="@id/heroListFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_login_to_register"
+            app:destination="@id/registerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.tacticore.ui.auth.RegisterFragment"
+        android:label="Регистрация"
+        tools:layout="@layout/fragment_register" />
+
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.example.tacticore.ui.auth.AccountFragment"
+        android:label="Акаунт"
+        tools:layout="@layout/fragment_account" />
+
+    <action
+        android:id="@+id/action_global_register"
+        app:destination="@id/registerFragment"
+        app:popUpTo="@id/heroListFragment"
+        app:popUpToInclusive="false" />
+
+    <action
+        android:id="@+id/action_global_login"
+        app:destination="@id/loginFragment"
+        app:popUpTo="@id/heroListFragment"
+        app:popUpToInclusive="true" />
 </navigation>
