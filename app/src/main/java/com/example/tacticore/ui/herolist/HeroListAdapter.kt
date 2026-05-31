@@ -1,5 +1,6 @@
 package com.example.tacticore.ui.herolist
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -14,6 +15,7 @@ class HeroListAdapter(
 
     private var heroes = listOf<Hero>()
 
+    @SuppressLint("NotifyDataSetChanged")
     fun submitList(list: List<Hero>) {
         heroes = list
         notifyDataSetChanged()
@@ -32,7 +34,7 @@ class HeroListAdapter(
 
     override fun getItemCount() = heroes.size
 
-    inner class HeroViewHolder(private val binding: ItemHeroBinding) : RecyclerView.ViewHolder(
+    class HeroViewHolder(private val binding: ItemHeroBinding) : RecyclerView.ViewHolder(
         binding.root
     ) {
         fun bind(hero: Hero) {

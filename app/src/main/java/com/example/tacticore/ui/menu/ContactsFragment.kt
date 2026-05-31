@@ -1,4 +1,4 @@
-package com.example.tacticore.ui.contacts
+package com.example.tacticore.ui.menu
 
 import android.os.Bundle
 import android.view.LayoutInflater

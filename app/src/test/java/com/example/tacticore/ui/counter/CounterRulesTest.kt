@@ -1,6 +1,5 @@
-package com.example.tacticore.utils
+package com.example.tacticore.ui.counter
 
-import com.example.tacticore.ui.counter.CounterRules
 import org.junit.Assert.*
 import org.junit.Test
 

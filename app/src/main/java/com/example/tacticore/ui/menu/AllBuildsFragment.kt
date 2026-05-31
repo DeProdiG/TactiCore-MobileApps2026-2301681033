@@ -1,4 +1,4 @@
-package com.example.tacticore.ui.allbuilds
+package com.example.tacticore.ui.menu
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -15,6 +15,7 @@ import com.example.tacticore.R
 import com.example.tacticore.TacticoreApplication
 import com.example.tacticore.data.HeroRepository
 import com.example.tacticore.ui.build.BuildListAdapter
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.launch
 
 class AllBuildsFragment : Fragment() {
@@ -35,7 +36,7 @@ class AllBuildsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = view.findViewById(R.id.recyclerViewAllBuilds)
-        val fabAddBuild = view.findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(
+        val fabAddBuild = view.findViewById<FloatingActionButton>(
             R.id.fabAddBuild
         )
 

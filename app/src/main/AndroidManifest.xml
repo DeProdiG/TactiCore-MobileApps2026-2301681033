@@ -20,7 +20,8 @@
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
-            tools:replace="android:screenOrientation" />
+            tools:replace="android:screenOrientation"
+            tools:ignore="DiscouragedApi" />
 
         <activity android:name=".ui.qr.QRScannerActivity" />
         <activity

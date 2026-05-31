@@ -84,19 +84,19 @@
 
     <fragment
         android:id="@+id/allBuildsFragment"
-        android:name="com.example.tacticore.ui.allbuilds.AllBuildsFragment"
+        android:name="com.example.tacticore.ui.menu.AllBuildsFragment"
         android:label="Tacticore"
         tools:layout="@layout/fragment_all_builds" />
 
     <fragment
         android:id="@+id/contactsFragment"
-        android:name="com.example.tacticore.ui.contacts.ContactsFragment"
+        android:name="com.example.tacticore.ui.menu.ContactsFragment"
         android:label="Tacticore"
         tools:layout="@layout/fragment_contacts" />
 
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.example.tacticore.ui.about.AboutFragment"
+        android:name="com.example.tacticore.ui.menu.AboutFragment"
         android:label="Tacticore"
         tools:layout="@layout/fragment_about" />
 

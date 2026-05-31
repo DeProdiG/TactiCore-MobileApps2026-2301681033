@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -10,7 +11,8 @@
         android:layout_height="wrap_content"
         android:text="Предмети (разделени със запетая)"
         android:textStyle="bold"
-        android:layout_marginBottom="4dp" />
+        android:layout_marginBottom="4dp"
+        tools:ignore="HardcodedText,VisualLintSystemUi" />
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
@@ -22,7 +24,8 @@
             android:id="@+id/etStadiumItems"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="напр. Jump Pack, Shield Generator" />
+            android:hint="напр. Jump Pack, Shield Generator"
+            tools:ignore="HardcodedText,VisualLintTextFieldSize" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -30,7 +33,8 @@
         android:layout_height="wrap_content"
         android:text="Джаджи"
         android:textStyle="bold"
-        android:layout_marginBottom="4dp" />
+        android:layout_marginBottom="4dp"
+        tools:ignore="HardcodedText" />
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
@@ -42,7 +46,8 @@
             android:id="@+id/etStadiumGadgets"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="напр. Stun Grenade, Healing Drone" />
+            android:hint="напр. Stun Grenade, Healing Drone"
+            tools:ignore="HardcodedText,TextContrastCheck,VisualLintTextFieldSize" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -50,7 +55,8 @@
         android:layout_height="wrap_content"
         android:text="Сили (Power)"
         android:textStyle="bold"
-        android:layout_marginBottom="4dp" />
+        android:layout_marginBottom="4dp"
+        tools:ignore="HardcodedText" />
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
@@ -61,7 +67,8 @@
             android:id="@+id/etStadiumPower"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ultimate усилване, атака" />
+            android:hint="Ultimate усилване, атака"
+            tools:ignore="HardcodedText,TextContrastCheck,VisualLintTextFieldSize" />
     </com.google.android.material.textfield.TextInputLayout>
 
 </LinearLayout>

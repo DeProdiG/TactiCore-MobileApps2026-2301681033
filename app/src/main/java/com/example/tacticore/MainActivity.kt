@@ -22,6 +22,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.tacticore.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
+import androidx.core.content.edit
 
 class MainActivity : AppCompatActivity() {
 
@@ -94,14 +95,19 @@ class MainActivity : AppCompatActivity() {
                         else -> AppCompatDelegate.MODE_NIGHT_NO
                     }
                     AppCompatDelegate.setDefaultNightMode(new)
-                    getSharedPreferences("settings", MODE_PRIVATE).edit().putInt("night_mode", new).apply()
+                    getSharedPreferences("settings", MODE_PRIVATE).edit {
+                        putInt(
+                            "night_mode",
+                            new
+                        )
+                    }
                     recreate()
                     true
                 }
                 else -> false
             }
         }
-        navController.addOnDestinationChangedListener { _, destination, _ ->
+        navController.addOnDestinationChangedListener { _, _, _ ->
             supportInvalidateOptionsMenu()
         }
     }

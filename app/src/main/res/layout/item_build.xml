@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="6dp"
@@ -20,31 +21,34 @@
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnEditBuild" />
+            app:layout_constraintEnd_toStartOf="@+id/btnEditBuild"
+            tools:ignore="VisualLintSystemUi" />
 
         <ImageButton
             android:id="@+id/btnEditBuild"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@android:drawable/ic_menu_edit"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="8dp"
             android:contentDescription="Редактирай"
-            app:layout_constraintTop_toTopOf="parent"
+            android:padding="8dp"
+            android:src="@android:drawable/ic_menu_edit"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnDeleteBuild" />
+            app:layout_constraintEnd_toStartOf="@+id/btnDeleteBuild"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText,ImageContrastCheck,TouchTargetSizeCheck" />
 
         <ImageButton
             android:id="@+id/btnDeleteBuild"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@android:drawable/ic_menu_delete"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="8dp"
             android:contentDescription="Изтрий"
-            app:layout_constraintTop_toTopOf="parent"
+            android:padding="8dp"
+            android:src="@android:drawable/ic_menu_delete"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText,ImageContrastCheck,TouchTargetSizeCheck" />
 
         <TextView
             android:id="@+id/tvNotesPreview"

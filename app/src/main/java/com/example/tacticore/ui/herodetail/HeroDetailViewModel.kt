@@ -73,8 +73,4 @@ class HeroDetailViewModel : ViewModel() {
         }
     }
 
-    fun setMode(mode: String) {
-        currentMode = mode
-        loadBuild()
-    }
 }

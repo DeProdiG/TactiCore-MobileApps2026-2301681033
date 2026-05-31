@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="220dp"
     android:layout_height="wrap_content"
     app:cardCornerRadius="24dp"
@@ -24,7 +25,8 @@
             android:textSize="18sp"
             android:gravity="center"
             android:background="?attr/selectableItemBackground"
-            android:padding="12dp" />
+            android:padding="12dp"
+            tools:ignore="HardcodedText,VisualLintSystemUi" />
 
         <View
             android:layout_width="match_parent"
@@ -41,7 +43,8 @@
             android:textSize="18sp"
             android:gravity="center"
             android:background="?attr/selectableItemBackground"
-            android:padding="12dp" />
+            android:padding="12dp"
+            tools:ignore="HardcodedText" />
 
         <View
             android:layout_width="match_parent"
@@ -58,7 +61,8 @@
             android:textSize="18sp"
             android:gravity="center"
             android:background="?attr/selectableItemBackground"
-            android:padding="12dp" />
+            android:padding="12dp"
+            tools:ignore="HardcodedText" />
 
         <View
             android:layout_width="match_parent"
@@ -75,7 +79,8 @@
             android:textSize="18sp"
             android:gravity="center"
             android:background="?attr/selectableItemBackground"
-            android:padding="12dp" />
+            android:padding="12dp"
+            tools:ignore="HardcodedText" />
 
         <View
             android:layout_width="match_parent"
@@ -92,7 +97,8 @@
             android:textSize="18sp"
             android:gravity="center"
             android:background="?attr/selectableItemBackground"
-            android:padding="12dp" />
+            android:padding="12dp"
+            tools:ignore="HardcodedText" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
