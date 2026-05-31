@@ -36,7 +36,13 @@
 ## Тестови акаунт
 Приложението не изисква вход (работи локално). Няма тестови акаунти.
 ## Скрийншотове
-
+<img width="576" height="1228" alt="Splash" src="https://github.com/user-attachments/assets/48373a56-6020-4881-aec0-e49d9d56861e" />
+<img width="589" height="1239" alt="MainScreen" src="https://github.com/user-attachments/assets/5eb5ca3b-f5be-4ca6-a5cd-510acbf5d772" />
+<img width="576" height="1234" alt="MenuScreen" src="https://github.com/user-attachments/assets/94524329-9810-48ed-bb7d-7f2ec65330b7" />
+<img width="569" height="1234" alt="BuildListScreen" src="https://github.com/user-attachments/assets/e4f66255-7909-42f0-9b64-d007b505051b" />
+<img width="578" height="1242" alt="DetailsScreen" src="https://github.com/user-attachments/assets/3ac5eac8-3c52-47d7-8a9e-961e8c1603ba" />
+<img width="571" height="1230" alt="DetailsScreen2" src="https://github.com/user-attachments/assets/3f673a75-f427-4dc0-bfd8-fad579f9cdc5" />
+<img width="581" height="1242" alt="CounterScreen" src="https://github.com/user-attachments/assets/f836778b-4260-4518-a78b-9c55a66a4e01" />
 ## APK файл
 Изтегли app-release.apk
 ## Допълнителна информация
